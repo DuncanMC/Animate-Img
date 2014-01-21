@@ -39,8 +39,8 @@
   NSMutableArray *images;
   int frameIndex;
   int repeatCount;
-  
 }
+
 - (IBAction)animateImages:(id)sender;
 - (IBAction)handleCrossFadeSwitch:(UISwitch *)sender;
 - (IBAction)handleReverseSwitch:(UISwitch *)sender;

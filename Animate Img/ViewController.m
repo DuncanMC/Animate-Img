@@ -14,6 +14,7 @@
 #define last_index 5
 #define image_count (last_index - first_index +1)
 #define imageNameFormat @"The Chin %d"
+#define  delay_fudge 0.912557
 
 @implementation ViewController
 
@@ -36,25 +37,27 @@
        [self animateImagesInLoop];
      else
      {
-       CGFloat finalDelay;
-       if (reverseAnimation)
-         finalDelay = 0;
-       else
-         finalDelay = 1;
        NSTimeInterval elapsedTime = [NSDate timeIntervalSinceReferenceDate] - animationStartTimeInterval;
        NSLog(@"Animation took %.2f seconds. crossfade = %d", elapsedTime, crossfade);
-       dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-                                    finalDelay * NSEC_PER_SEC),
-                      dispatch_get_main_queue(),
-                      ^{
-                        
-                        imageView1.alpha = 1.0;
-                        imageView2.alpha = 1.0;
-                        imageView1.image = images[0];
-                        imageView2.image = images[1];
-                        animateButton.enabled = YES;
-                      }
-                      );
+       
+       if (!reverseAnimation)
+         //If we are not reversing the animation, pause before resetting everything back
+         //to the starting state.
+         dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
+                                      1.0 *  delay_fudge * NSEC_PER_SEC),
+                        dispatch_get_main_queue(),
+                        ^{
+                          
+                          imageView1.alpha = 1.0;
+                          imageView2.alpha = 1.0;
+                          imageView1.image = images[0];
+                          imageView2.image = images[1];
+                          animateButton.enabled = YES;
+                        }
+                        );
+       
+       else
+         animateButton.enabled = YES;
      }
    }];
 }
@@ -143,10 +146,12 @@
                        ^{
                          //When the current animation step completes, trigger the method again.
                          if (frameIndex < frameCount)
+                         {
                            [self animateImagesWithDuration: totalDuration
                                                    reverse: reverse
                                                  crossfade: doCrossfade
                                        withCompletionBlock: completionBlock];
+                         }
                          else
                            if (completionBlock)
                              completionBlock();
@@ -156,32 +161,58 @@
   else
   {
     //We're not supposed to crossfade, so just set the alpha and queue up the next step after a delay.
-    if (frameIndex < frameCount)
-      dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-                                   frameDuration * NSEC_PER_SEC),
-                     dispatch_get_main_queue(),
-                     ^{
-                       imageView1.alpha = currentImageViewindex;
-                       [self animateImagesWithDuration: totalDuration
-                                               reverse: reverse
-                                             crossfade: doCrossfade
-                                   withCompletionBlock: completionBlock];
-                     });
-    else
-    {
-      if (completionBlock)
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-                                     frameDuration * NSEC_PER_SEC),
-                       dispatch_get_main_queue(),
-                       ^{
+    CGFloat delay;
+    
+    //Wait to execute the first alpha change. (frameIndex will be 1 because we already incremented it above
+    if (frameIndex == 1)
+      delay = frameDuration;
+    else delay = 0;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
+                                 delay * delay_fudge * NSEC_PER_SEC),
+                   dispatch_get_main_queue(),
+                   ^{
+                     imageView1.alpha = currentImageViewindex;
+                     if (frameIndex < frameCount)
+                     {
+                       dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
+                                                    frameDuration *  delay_fudge * NSEC_PER_SEC),
+                                      dispatch_get_main_queue(),
+                                      ^{
+                                        [self animateImagesWithDuration: totalDuration
+                                                                reverse: reverse
+                                                              crossfade: doCrossfade
+                                                    withCompletionBlock: completionBlock];
+                                      });
+                     }
+                     else
+                     {
+                       if (completionBlock)
                          completionBlock();
-                       });
-      imageView1.alpha = currentImageViewindex;
-
-    }
+                     }
+                   });
   }
 }
 
+//-----------------------------------------------------------------------------------------------------------
+
+- (void) logImagesWithMessage: (NSString * ) message;
+{
+  NSUInteger i1Index = [images indexOfObjectIdenticalTo: imageView1.image];
+  if (message.length)
+    NSLog(@"%@", message);
+  if (i1Index == NSNotFound)
+    NSLog(@"imageView1 does not contain an image");
+  else
+    NSLog(@"imageView1 contains image %lu", (unsigned long)i1Index);
+  
+  NSUInteger i2Index = [images indexOfObjectIdenticalTo: imageView2.image];
+  if (i2Index == NSNotFound)
+    NSLog(@"imageView2 does not contain an image");
+  else
+    NSLog(@"imageView2 contains image %lu", (unsigned long)i2Index);
+  
+}
 //-----------------------------------------------------------------------------------------------------------
 
 - (void)viewWillAppear:(BOOL)animated
