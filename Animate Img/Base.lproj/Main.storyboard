@@ -169,11 +169,14 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7kY-Lr-1QU">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7kY-Lr-1QU">
                                         <rect key="frame" x="0.0" y="253" width="320" height="53"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="53" id="mOU-ho-5O1"/>
+                                        </constraints>
                                         <attributedString key="attributedText">
                                             <fragment>
                                                 <string key="content">This morph was generated with Face Dancer. Click to view in the app store:
@@ -249,7 +252,7 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="BNg-W4-KD1" secondAttribute="bottom" id="Ozy-IC-gns" userLabel="Container view bottom constraint"/>
                             <constraint firstItem="BNg-W4-KD1" firstAttribute="leading" secondItem="wiG-Pg-Ptt" secondAttribute="leading" id="WWe-FQ-Upr"/>
-                            <constraint firstItem="BNg-W4-KD1" firstAttribute="top" secondItem="EcO-Zz-M2P" secondAttribute="bottom" id="he4-fC-oOo"/>
+                            <constraint firstItem="BNg-W4-KD1" firstAttribute="top" secondItem="EcO-Zz-M2P" secondAttribute="bottom" id="he4-fC-oOo" userLabel="Container view top constraint"/>
                             <constraint firstAttribute="trailing" secondItem="BNg-W4-KD1" secondAttribute="trailing" id="yaP-jV-fwo"/>
                         </constraints>
                     </view>
@@ -257,6 +260,7 @@
                     <connections>
                         <outlet property="animateButton" destination="Hpm-XN-YPh" id="hH4-6O-9LW"/>
                         <outlet property="containerBottomConstraint" destination="Ozy-IC-gns" id="xdF-73-zRJ"/>
+                        <outlet property="containerTopConstraint" destination="he4-fC-oOo" id="d28-UR-2P8"/>
                         <outlet property="containerView" destination="BNg-W4-KD1" id="zkl-5W-V7I"/>
                         <outlet property="crossfadeSwitch" destination="zf2-Io-cPd" id="Bfd-Tr-wS4"/>
                         <outlet property="durationField" destination="RtV-bu-z24" id="i2D-Ka-Tu5"/>
