@@ -21,6 +21,7 @@
 		AE38AF2D188E0800008507F8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE38AF0F188E0800008507F8 /* UIKit.framework */; };
 		AE38AF35188E0800008507F8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE38AF33188E0800008507F8 /* InfoPlist.strings */; };
 		AE38AF37188E0800008507F8 /* Animate_ImgTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE38AF36188E0800008507F8 /* Animate_ImgTests.m */; };
+		AEAFCCEE188E10F700FD9B01 /* CALayer+setUIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = AEAFCCED188E10F700FD9B01 /* CALayer+setUIColor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		AE38AF32188E0800008507F8 /* Animate ImgTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Animate ImgTests-Info.plist"; sourceTree = "<group>"; };
 		AE38AF34188E0800008507F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AE38AF36188E0800008507F8 /* Animate_ImgTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Animate_ImgTests.m; sourceTree = "<group>"; };
+		AEAFCCEC188E10F700FD9B01 /* CALayer+setUIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+setUIColor.h"; sourceTree = "<group>"; };
+		AEAFCCED188E10F700FD9B01 /* CALayer+setUIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+setUIColor.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,12 +115,12 @@
 		AE38AF11188E0800008507F8 /* Animate Img */ = {
 			isa = PBXGroup;
 			children = (
+				AEAFCCEC188E10F700FD9B01 /* CALayer+setUIColor.h */,
+				AEAFCCED188E10F700FD9B01 /* CALayer+setUIColor.m */,
 				AE38AF1A188E0800008507F8 /* AppDelegate.h */,
 				AE38AF1B188E0800008507F8 /* AppDelegate.m */,
-				AE38AF1D188E0800008507F8 /* Main.storyboard */,
 				AE38AF20188E0800008507F8 /* ViewController.h */,
 				AE38AF21188E0800008507F8 /* ViewController.m */,
-				AE38AF23188E0800008507F8 /* Images.xcassets */,
 				AE38AF12188E0800008507F8 /* Supporting Files */,
 			);
 			path = "Animate Img";
@@ -126,6 +129,8 @@
 		AE38AF12188E0800008507F8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AE38AF1D188E0800008507F8 /* Main.storyboard */,
+				AE38AF23188E0800008507F8 /* Images.xcassets */,
 				AE38AF13188E0800008507F8 /* Animate Img-Info.plist */,
 				AE38AF14188E0800008507F8 /* InfoPlist.strings */,
 				AE38AF17188E0800008507F8 /* main.m */,
@@ -249,6 +254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEAFCCEE188E10F700FD9B01 /* CALayer+setUIColor.m in Sources */,
 				AE38AF22188E0800008507F8 /* ViewController.m in Sources */,
 				AE38AF1C188E0800008507F8 /* AppDelegate.m in Sources */,
 				AE38AF18188E0800008507F8 /* main.m in Sources */,
@@ -460,6 +466,7 @@
 				AE38AF3C188E0800008507F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AE38AF3D188E0800008507F8 /* Build configuration list for PBXNativeTarget "Animate ImgTests" */ = {
 			isa = XCConfigurationList;
@@ -468,6 +475,7 @@
 				AE38AF3F188E0800008507F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
