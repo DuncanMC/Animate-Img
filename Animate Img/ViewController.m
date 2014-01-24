@@ -254,6 +254,9 @@
                                 CGRect keyboardFrame;
                                 NSDictionary* userInfo = note.userInfo;
                                 keyboardSlideDuration = [[userInfo objectForKey: UIKeyboardAnimationDurationUserInfoKey] floatValue];
+                                //-----------
+                                NSInteger curve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+                                //-----------
                                 keyboardFrame = [[userInfo objectForKey: UIKeyboardFrameBeginUserInfoKey] CGRectValue];
                                 
                                 UIInterfaceOrientation theStatusBarOrientation = [[UIApplication sharedApplication] statusBarOrientation];
@@ -264,7 +267,7 @@
                                 else
                                   keyboardHeight = keyboardFrame.size.height;
                                 
-                                CGRect fieldFrame = textFieldToEdit.frame;
+                                CGRect fieldFrame = textFieldToEdit.bounds;
                                 fieldFrame = [self.view convertRect: fieldFrame fromView: textFieldToEdit];
                                 CGRect contentFrame = self.view.frame;
                                 CGFloat fieldBottom = fieldFrame.origin.y + fieldFrame.size.height;
@@ -272,16 +275,29 @@
                                 keyboardShiftAmount= 0;
                                 if (contentFrame.size.height - fieldBottom <keyboardHeight)
                                 {
-                                  keyboardShiftAmount = keyboardHeight - (contentFrame.size.height - fieldBottom);
+                                  keyboardShiftAmount = keyboardHeight - (contentFrame.size.height - fieldBottom)+5;
                                   containerTopConstraint.constant -= keyboardShiftAmount;
                                   containerBottomConstraint.constant += keyboardShiftAmount;
+                                  
+                                  
+//                                  [UIView beginAnimations:nil context:NULL];
+//                                  [UIView setAnimationDuration:keyboardSlideDuration];
+//                                  [UIView setAnimationCurve:curve];
+//                                  [UIView setAnimationBeginsFromCurrentState:YES];
+//                                  
+//                                  [containerView layoutIfNeeded];
+//                                  
+//                                  [UIView commitAnimations];
                                   [UIView animateWithDuration: keyboardSlideDuration
+                                                        delay: 0
+                                                      options: curve <<16
                                                    animations:^{
                                                      //                                                     [viewToShift setNeedsUpdateConstraints];
                                                      [containerView layoutIfNeeded];
                                                    }
+                                   completion: nil
                                    ];
-                                }
+                                 }
                               }
                               ];
 
