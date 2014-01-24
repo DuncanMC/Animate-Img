@@ -244,7 +244,6 @@
   
   //Set up a notification handler to shift the content view up to make room for the keyboard if the current text field
   //Will be covered by the keyboard.
-  
   showKeyboardNotificaiton = [[NSNotificationCenter defaultCenter] addObserverForName: UIKeyboardWillShowNotification
                               
                                                                                object: nil
@@ -253,37 +252,60 @@
                               {
                                 CGRect keyboardFrame;
                                 NSDictionary* userInfo = note.userInfo;
+                                //keyboardSlideDuration is an instance variable so we can keep it around to use in the "dismiss keyboard" animation.
                                 keyboardSlideDuration = [[userInfo objectForKey: UIKeyboardAnimationDurationUserInfoKey] floatValue];
-                                //-----------
+
+                                //Get the animation curve from the user info and convert it
+                                //from a UIViewAnimationCurve value to a UIViewAnimationOptions value
+                                
+                                //keyboardAnimationCurve is an instance variable so we can keep it around to use in the "dismiss keyboard" animation.
                                  keyboardAnimationCurve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue]<<16;
-                                //-----------
+
+                                //Get the size of the keyboard.
                                 keyboardFrame = [[userInfo objectForKey: UIKeyboardFrameBeginUserInfoKey] CGRectValue];
                                 
                                 UIInterfaceOrientation theStatusBarOrientation = [[UIApplication sharedApplication] statusBarOrientation];
                                 
                                 CGFloat keyboardHeight;
+                                
+                                //The keyboard frame will not refelect the current orietnation. height = width if we're in landscape...
                                 if UIInterfaceOrientationIsLandscape(theStatusBarOrientation)
                                   keyboardHeight = keyboardFrame.size.width;
                                 else
                                   keyboardHeight = keyboardFrame.size.height;
                                 
+                                //Get the bounds of the current text field.
                                 CGRect fieldFrame = textFieldToEdit.bounds;
+                                
+                                //Convert the field's bounds to the coordinates of the VC's content view.
                                 fieldFrame = [self.view convertRect: fieldFrame fromView: textFieldToEdit];
+                                
                                 CGRect contentFrame = self.view.frame;
+                                
+                                //Calculate the Y position of the bottom of the input field.
                                 CGFloat fieldBottom = fieldFrame.origin.y + fieldFrame.size.height;
                                 
                                 keyboardShiftAmount= 0;
-                                if (contentFrame.size.height - fieldBottom <keyboardHeight)
+                                
+                                //If the bottom of the input field is going to be covered by the keyboard...
+                                if (contentFrame.size.height + contentFrame.origin.y - fieldBottom <keyboardHeight)
                                 {
-                                  keyboardShiftAmount = keyboardHeight - (contentFrame.size.height - fieldBottom)+5;
+                                  //Figure out how much to shift the container view to expose the input field (plus 5 pixels of "breathing room")
+                                  keyboardShiftAmount = keyboardHeight - (contentFrame.size.height + contentFrame.origin.y - fieldBottom)+5;
+                                  
+                                  //keyboardShiftAmount is an instance variable so we can use it to shift the container view back again when the keyboard disappears.
+                                  
+                                  //Adjust the top and bottom constraints for the container view
                                   containerTopConstraint.constant -= keyboardShiftAmount;
                                   containerBottomConstraint.constant += keyboardShiftAmount;
                                   
+                                  
+                                  //animate the change to the view constraint using
+                                  //the duration and animation curve specified in the keyboard notification.
                                   [UIView animateWithDuration: keyboardSlideDuration
                                                         delay: 0
                                                       options: keyboardAnimationCurve
                                                    animations:^{
-                                                     //                                                     [viewToShift setNeedsUpdateConstraints];
                                                      [containerView layoutIfNeeded];
                                                    }
                                    completion: nil
@@ -304,6 +326,8 @@
                                                       options: keyboardAnimationCurve
                                                    animations:
                                    ^{
+                                     //Rervese the changes to the container view's top and bottom constraints
+                                     //from the show keyboard animation above
                                      containerBottomConstraint.constant -= keyboardShiftAmount;
                                      containerTopConstraint.constant += keyboardShiftAmount;
                                      [self.view setNeedsUpdateConstraints];
