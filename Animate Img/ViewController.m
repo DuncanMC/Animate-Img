@@ -255,7 +255,7 @@
                                 NSDictionary* userInfo = note.userInfo;
                                 keyboardSlideDuration = [[userInfo objectForKey: UIKeyboardAnimationDurationUserInfoKey] floatValue];
                                 //-----------
-                                NSInteger curve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+                                 keyboardAnimationCurve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue]<<16;
                                 //-----------
                                 keyboardFrame = [[userInfo objectForKey: UIKeyboardFrameBeginUserInfoKey] CGRectValue];
                                 
@@ -279,18 +279,9 @@
                                   containerTopConstraint.constant -= keyboardShiftAmount;
                                   containerBottomConstraint.constant += keyboardShiftAmount;
                                   
-                                  
-//                                  [UIView beginAnimations:nil context:NULL];
-//                                  [UIView setAnimationDuration:keyboardSlideDuration];
-//                                  [UIView setAnimationCurve:curve];
-//                                  [UIView setAnimationBeginsFromCurrentState:YES];
-//                                  
-//                                  [containerView layoutIfNeeded];
-//                                  
-//                                  [UIView commitAnimations];
                                   [UIView animateWithDuration: keyboardSlideDuration
                                                         delay: 0
-                                                      options: curve <<16
+                                                      options: keyboardAnimationCurve
                                                    animations:^{
                                                      //                                                     [viewToShift setNeedsUpdateConstraints];
                                                      [containerView layoutIfNeeded];
@@ -309,12 +300,16 @@
                               {
                                 if (keyboardShiftAmount != 0)
                                   [UIView animateWithDuration: keyboardSlideDuration
-                                                   animations:^{
-                                                     containerBottomConstraint.constant -= keyboardShiftAmount;
-                                                     containerTopConstraint.constant += keyboardShiftAmount;
-                                                     [self.view setNeedsUpdateConstraints];
-                                                     [containerView layoutIfNeeded];
-                                                   }
+                                                        delay: 0
+                                                      options: keyboardAnimationCurve
+                                                   animations:
+                                   ^{
+                                     containerBottomConstraint.constant -= keyboardShiftAmount;
+                                     containerTopConstraint.constant += keyboardShiftAmount;
+                                     [self.view setNeedsUpdateConstraints];
+                                     [containerView layoutIfNeeded];
+                                   }
+                                                   completion: nil
                                    ];
                               }
                               ];

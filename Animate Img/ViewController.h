@@ -31,6 +31,8 @@
   CGFloat keyboardShiftAmount;
   CGFloat duration;
   
+  NSInteger keyboardAnimationCurve;
+  
   NSTimeInterval animationStartTimeInterval;
   
   BOOL crossfade;
