@@ -326,7 +326,7 @@
                                                       options: keyboardAnimationCurve
                                                    animations:
                                    ^{
-                                     //Rervese the changes to the container view's top and bottom constraints
+                                     //Reverse the changes to the container view's top and bottom constraints
                                      //from the show keyboard animation above
                                      containerBottomConstraint.constant -= keyboardShiftAmount;
                                      containerTopConstraint.constant += keyboardShiftAmount;
