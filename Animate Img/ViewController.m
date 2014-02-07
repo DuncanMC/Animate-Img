@@ -368,12 +368,21 @@
 }
 
 //-----------------------------------------------------------------------------------------------------------
+
 - (UIBarPosition)positionForBar:(id <UIBarPositioning>)bar {
+  
   return UIBarPositionTopAttached;
 }
 
 //-----------------------------------------------------------------------------------------------------------
 #pragma mark -	UITextFieldDelegate methods
+//-----------------------------------------------------------------------------------------------------------
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
+{
+  return YES;
+}
+
 //-----------------------------------------------------------------------------------------------------------
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField

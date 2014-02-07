@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UITextViewDelegate>
 {
   __weak IBOutlet UIImageView *imageView1;
   __weak IBOutlet UIImageView *imageView2;

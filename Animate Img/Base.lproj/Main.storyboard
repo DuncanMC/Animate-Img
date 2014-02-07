@@ -179,8 +179,8 @@
                                         </constraints>
                                         <attributedString key="attributedText">
                                             <fragment>
-                                                <string key="content">This morph was generated with Face Dancer. Click to view in the app store:
-</string>
+                                                <string key="content">This morph was generated with Face Dancer. 
+Click </string>
                                                 <attributes>
                                                     <font key="NSFont" size="12" name="Helvetica"/>
                                                     <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural">
@@ -201,7 +201,7 @@
                                                     </paragraphStyle>
                                                 </attributes>
                                             </fragment>
-                                            <fragment content="www.tinyurl.com/facedancer">
+                                            <fragment content="http://tinyurl.com/facedancer">
                                                 <attributes>
                                                     <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <font key="NSFont" size="12" name="Helvetica-Bold"/>
@@ -225,9 +225,34 @@
                                                     <color key="NSUnderlineColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </attributes>
                                             </fragment>
+                                            <fragment content=" to view in the app store.">
+                                                <attributes>
+                                                    <font key="NSFont" size="12" name="Helvetica"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural">
+                                                        <tabStops>
+                                                            <textTab alignment="left" location="36"/>
+                                                            <textTab alignment="left" location="72"/>
+                                                            <textTab alignment="left" location="108"/>
+                                                            <textTab alignment="left" location="144"/>
+                                                            <textTab alignment="left" location="180"/>
+                                                            <textTab alignment="left" location="216"/>
+                                                            <textTab alignment="left" location="252"/>
+                                                            <textTab alignment="left" location="288"/>
+                                                            <textTab alignment="left" location="324"/>
+                                                            <textTab alignment="left" location="360"/>
+                                                            <textTab alignment="left" location="396"/>
+                                                            <textTab alignment="left" location="432"/>
+                                                        </tabStops>
+                                                    </paragraphStyle>
+                                                    <color key="NSUnderlineColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </attributes>
+                                            </fragment>
                                         </attributedString>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="fjF-Mv-WLT" id="LQJ-Uq-wVL"/>
+                                        </connections>
                                     </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
